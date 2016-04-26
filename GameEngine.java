@@ -1,4 +1,4 @@
-
+package f2-assi.06;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +50,35 @@ public class GameEngine implements KeyListener,GameReporter{
 		enemies.add(e);
 	}
 
+	private void process(){
+		if(Math.random() < difficulty){
+			generateEnemy();
+		}
+
+		Iterator<Enemy> e_iter = enemies.iterator();
+		while(e_iter.hasNext()){
+			Enemy e = e_iter.next();
+			e.proceed();
+
+			if(!e.isAlive()){
+				e_iter.remove();
+				gp.sprites.remove(e);
+				socre += 100;
+			}
+		}
+		gp.updateGameUI(this);
+
+		Rectangle2D.Double vr = v.getRectangle();
+		Rectangle2D.Double er;
+		for(Enemy e : enemies){
+			er =  e.getRectangle();
+			if(er.intersects(vr)){
+				die();
+				return;
+
+			}
+		}
+	}
 
 	public void die(){
 		timer.stop();

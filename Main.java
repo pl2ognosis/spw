@@ -1,4 +1,4 @@
-
+package f2-assi.06;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
